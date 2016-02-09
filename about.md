@@ -8,11 +8,11 @@ Thanks for checking out my blog! I'm Frank, an aspiring data scientist, part-tim
 
 I will try to keep all relevant source code on my (personal) Github account:
 {% include icon-github.html username="fineiskid" %}
-<!-- [jekyll-new](https://github.com/fineiskid) -->
-
 If any code is missing from that account, I will provide the alternative link.
 
 In addition to the code snippets and educational materials, please check out my blog for thought piece regarding trends in data science and my space for Podcasts. Podcasts of all types are great! 
+
+
 
 
 Yours truly,
