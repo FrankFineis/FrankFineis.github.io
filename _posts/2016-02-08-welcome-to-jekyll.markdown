@@ -1,25 +1,22 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2016-02-08 18:28:13 -0600
-categories: jekyll update
+title:  "Data science: an elusive concept? Not really.""
+date:   2016-02-09 18:28:13 -0600
+categories: data science history
 ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
+_Predictive analytics_, _deep learning_, _big data_: they're all buzzwords that surround this term we've settled on called _data science_. Data science has been called the crossroads of traditional computer science, statistics, and computer programming. To me, data science too often gets funneled into a simple application of a machine learning technique for binary classification purposes. If that means nothing to you, it just means classifying objects as a 0 (negative response) or 1 (positive response). That said, binary classification tasks are a huge facet of predictive modeling! Data science can encompass everything from a simple linear regression model, to computer vision, linguistic analysis, database structure, and even [Van Gogh][deep_learning_article]:
 
-Jekyll also offers powerful support for code snippets:
+![Deep Nets and Van Gogh][images/van_gogh_screenshot.png]
 
-{% highlight ruby %}
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
-{% endhighlight %}
+Yes, art is quantifiable according to convolutional neural networks.
 
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+Overall, _data science_ is exactly what it sounds like - experimenting and trying to draw conclusions from datasets. While there are hundreds, if not thousands of different specific fields contained within data science such as regression modeling, high-performance computing cluster management, neural nets (don't get me started on neural nets), I guarantee that there is a huge body of literature and guides for the flavor of data science you're interested in. My goals for the aspiring data scientist - have fun, be creative, experiment, and try to learn Git! Data scientists these days (data science as we know it really emerged hundreds of years ago with the [rise of amateur actuaries][wiki_article]) all will mostly have a foundation in R and/or Python, basic statistical/probability knowledge, and from there they will try to specialize in particular fields most interesting or useful to them.
 
-[jekyll-docs]: http://jekyllrb.com/docs/home
-[jekyll-gh]:   https://github.com/jekyll/jekyll
-[jekyll-talk]: https://talk.jekyllrb.com/
+
+<!-- cool: include links at the end of your post... -->
+
+[deep_learning_article]: http://www.anishathalye.com/2015/12/19/an-ai-that-can-mimic-any-artist/
+[wiki_article]: https://en.wikipedia.org/wiki/Actuary#Need_for_insurance
+
