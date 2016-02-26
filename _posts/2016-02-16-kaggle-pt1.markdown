@@ -26,14 +26,14 @@ Alright, so you're an aspiring data scientist, say a graduate student in a STEM 
 
 <br/>
 
-####THE GIST:
+## THE GIST:
  Like I said, we'll need to process the training data, seek out new features, pick a model, train and tune it, process the test data, and get our predictions on the test data. I'm going to do this using `R`, and since there's been a lot of buzz about __extreme gradient boosting__ over the last year or two, and the [xgboost library](https://www.youtube.com/watch?v=Og7CGAfSr_Y) that implements the technique has won at least one Kaggle competition (probably more, I didn't feel like researching it further), we'll use xgboost to build a model/get predictions.
 
 I'm not going to get into the nitty gritty of boosted trees and gradient boosting, but from a high level, you can think of it as a weighted sum of small decision trees. The size of the weighted sum (i.e. the number of decision trees) is a hyper-parameter that we'll tune. Each additional decision tree itself comes from fitting the residuals between the outcome and the existing weighted sum of small residual trees. Xgboost by default builds this type of boosted tree model for classification purposes, but it can also be used for continuous, regression learning purposes by setting `objective = "reg:linear"` within the parameter list submitted to `xbg.train` (more on this to come). I'd Google it, but let's move on to data preprocessing first.
 
 When we make a model using the training data, we'll need to make sure that we treat the test data in exactly the same way we did the training data to get the same results. For example, if we scale one feature in the training set, we have to scale the corresponding feature in the test set. Staying organized is the number one priority!
 
-We will be evaluated according to the **log-loss** the host will calculated from our vector of predictions on the albums put forth in `test.csv`. We could theoretically evaluate log-loss by hand, it's given by
+We will be evaluated according to the **log-loss** the host will calculate from our vector of predictions on the albums put forth in `test.csv`. We could theoretically evaluate log-loss by hand, it's given by
 
 ![equation](http://www.sciweavers.org/tex2img.php?eq=%24%24-%5Csum%20%28y_%7Bi%7Dlog%28y_%7Bpred%7D%29%20%2B%20%281-y_%7Bi%7D%29log%281-y_%7Bpred%7D%29%29%24%24&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0 align="center" border="0" alt="$$-\sum (y_{i}log(y_{pred}) + (1-y_{i})log(1-y_{pred}))$$" width="339" height="22" />)
 
@@ -41,7 +41,7 @@ Fortunately, the `xgboost` library will allow us to specify log-loss as the loss
 
 <br/>
 
-####What our data looks like:
+## What our data looks like:
 1. `id`: index of the photo album. This is pretty useless towards training a predictive model, so this will be removed from training and test sets.
 2. `latitude`: integer-rounded latitude coordinates of geo-tag of the photo album.
 3. `longitude`: integer-rounded longitude coordinates of geo-tag of the photo album.
@@ -57,7 +57,7 @@ Note that the "words" have ben anonymized into integers. A word is present in th
 
 <br/>
 
-####Extra features:
+## Extra features:
 The main features that come with the training/test data are integer-rounded latitude/longitude coordinates, height/width of the photos used in albums being studied, the number of photos being studied (`size`), and anonymized text from the album name, album description, and album caption.
 
 1. *Area*: area is a nonlinear feature (it's multiplicative, duh) that might help us eek-out some extra performance.
@@ -70,7 +70,7 @@ The main features that come with the training/test data are integer-rounded lati
 
 <br/>
 
-##What's left to do?
+## What's left to do?
 As of now have chosen a statistical model, checked out our data, and extracted some more features. Next, we'll have to train and tune an xgboost model. There are a **bunch** of parameters we can tune to try to minimize the log-loss, and we might look at some of these:
 
 - `max.depth` : how many levels each small trees in our model, which is a sum of small trees, will be allowed to have
