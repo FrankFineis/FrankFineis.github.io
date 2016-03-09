@@ -6,7 +6,7 @@ categories: data
 ---
 
 
-Now that we have our data features - recall that we saved the TF-IDF transformed text data from the *names* and *description/caption* fields and country names we got from the Geonames API in the `./data` directory - we'll assemble our training and test data matrices. After that, we'll train an `xgboost` model comprised of trees and (briefly) tune a few hyperparameters.
+After finishing [Part 1](http://frankfineis.github.io/tutorials/2016/02/17/kaggle-pt1.html) of this tutorial we have our data features - recall that we saved the TF-IDF transformed text data from the *names* and *description/caption* fields and country names we got from the Geonames API in the `./data` directory - we'll assemble our training and test data matrices. After that, we'll train an `xgboost` model comprised of trees and (briefly) tune a few hyperparameters.
 
 It's important to note that there are two different ways to train and validate a model: we can use the functions supplied to us in the `xgboost` package directly (e.g. `xgb.train` or `xgb.cv`), OR, we can use the `caret` package. I'll illustrate both, but I'll use `caret` to tune the model that will be used for making predictions on `test.csv`.
 
@@ -14,7 +14,7 @@ Go ahead and navigate to the [run_classifier.R](https://github.com/fineiskid/pho
 
 <br/>
 
-### (1) The `assemble_data` function:
+### (1) The `assemble_data` function
 
 This function will load and format either your training or test data (from `train.csv` or `test.csv` accordingly). Namely, this data pre-processing function will do the following:
 
@@ -33,7 +33,7 @@ train <- train_data$data; y <- train_data$y
 
 <br/>
 
-### (2.a) Train a model with randomly chosen parameters (optional):
+### (2.a) Train a model with randomly chosen parameters (optional)
 
 If you want to use the model training, validation, and prediction functions supplied in the Xgboost package, that's great, just be aware that you should supply each of `xgb.train`, `xgb.cv`, and `xgb::predict` with special data structures created with `xgb.DMatrix` instead of regular old matrices or R data.frames. First, we split up the `train` data into a training set and a validation set. I know, it's confusing terminology - we're taking 80% of the training data and calling *this* the training set and the remaining 20% the *validation* set. Anyway, the next chunk of code will fit a xgboosted tree model with a set of hyperparameters I pulled out of nowhere. Note that by using the `watchlist` setting, the training and validation set performance will print to the screen each time a new one of the `nround` small trees is appended to the aggregate model, but I'm saving this output to a text file via R's `sink` function. Finally, we can estimate our accuracy on `test.csv` by using our prediction error on the validation set as a proxy:
 
@@ -83,7 +83,7 @@ barplot(importance_matrix$Gain[6:1],
 <img src = "https://raw.githubusercontent.com/fineiskid/photo_kaggle/master/output/feature_importance.png" class = "inline"/>
 
 
-### (2.b) Tune hyperparameters with `caret::train`:
+### (2.b) Tune hyperparameters with `caret::train`
 Since we really have little insight into whether we should use a small `max_depth` or a large one, let all of our features be available when constructing a weak learner (i.e. how to set `colsample_bytree`), etc... We should set up a grid of parameters, cross validate a model for every combination of parameters in the grid, and pick the best one! This is a very computationally expensive way to pick a model, and note that it's still not even very refined when there are big discrete gaps in the hyperparameter values present in the grid. Still, we might be able to eek out better performance with a high-level gridsearch. Use R's convenient `expand.grid` function to make a data.frame with every combination of hyperparameters you're interested in; use `caret::trainControl` to specify the type of validation you're interested in (we'll do 5-fold cross validation); and use `caret::train` to search over the grid of hyperparameter combinations to find the model that minimizes log-loss. We can only use `caret` because it recently began supporting `model = 'xgbTree'` (caret supports hundreds of different models, actually), and it conveniently supports log-loss as an optimization metric too!
 
 {% highlight R %}
@@ -112,7 +112,7 @@ xgb_cv1 <- caret::train(x = train,
 
 A couple of points regarding `caret`'s functionality versus `xgboost`'s: first, you'll need to make `y` a factor vector instead of a numeric vector so that `caret::train` knows that you want to perform a classification task instead of a regression task. Also, with `caret` we can return to using matrices and data.frames instead of `xgb.DMatrix`'s. Finally - this gridsearch will take a **long time** (at least 3 hours on a Macbook with an i7 core processor). 
 
-### (3) Visualize performance with an ROC curve(optional):
+### (3) Visualize performance with an ROC curve (optional):
 Receiver operating characteristics (ROC's) are confusing, so I suggest reading the [Wikipedia](https://en.wikipedia.org/wiki/Receiver_operating_characteristic) article about them. Maybe I'll make a post about it soon. Basically, they just let you compare the performance of different classification models. A popular one called "area under curve" the false positive rate (i.e. rate at which we call a bad photo album good) versus the true positive rate (i.e. rate at which we call good albums good). When the false positive rate (FPR) is zero, we've just called every album 'bad' so the true positive rate (TPR) is 0%. Similarly, when we call every album good, the FPR is 100% and the TPR 100%. The best model ever would have 0% FPR and 100% TPR, so an "area under the curve" of 1. I suggest reading [this](http://blog.yhat.com/posts/roc-curves.html) great intro link about AUC and ROC curves. Anyway, you need to obtain class probabilities from `caret::train` **or** `xgb.predict` in order to build an ROC curve.
 
 My code in [run_classifier.R](https://github.com/fineiskid/photo_kaggle/blob/master/scripts/run_classifier.R) will let you build the ROC curve by hand as well as leverage the R packages `pROC` and `ROCR` for simplification:
@@ -126,11 +126,29 @@ rocr_perf <- performance(rocr_pred, measure = "tpr", x.measure = "fpr") #this is
 auc_data <- data.frame("fpr" = unlist(rocr_perf@x.values), "tpr" = unlist(rocr_perf@y.values))
 {% endhighlight R %}
 
-
-## (4) Assemble test data and gather predictions
-
+<img src = "https://raw.githubusercontent.com/fineiskid/photo_kaggle/master/output/roc_curve.png" class = "inline"/>
 
 
-## Run this bad boy yourself (optional)
+### (4) Assemble test data and gather predictions
 
-From your command line, navigate to the `photo_kaggle` directory and run `> Rscript ./scripts/run_classifier.R`. This will build an xgboost model and save predictions from the `test.csv` file provided to us on Kaggle.
+Just like in step (1), use `assemble_data` to construct the test set with all of the new features we have. If you look in the `example_entry.csv` file that the Kaggle administrator supplied, they want for the output to have two columns, *id* and *good*, where *good* is binary 0/1. Since `caret::predict(model, newdata, type = "raw")` returns factor variables representing class membership, just use R's super-convenient `ifelse` function to change the results to zeros and ones. Save the data, and submit!
+
+{% highlight R %}
+test_data <- assemble_data(train_or_test = "test",
+                          data_file = "./data/test.csv",
+                          name_tfidf_file = "./data/test_name_tfidf.rds",
+                          desc_caption_tfidf_file = "./data/test_desc_caption_tfidf.rds",
+                          country_file = "./data/aggregate_test_countries.RDS")
+
+test <- test_data$data
+test_classes <- ifelse(predict(xgb_cv1, test, type = "raw") == "good", 1, 0)
+
+#Save and then submit predictions!
+write.csv(data.frame(id = read.csv("./data/test.csv")$id, good = test_classes),
+          "./output/test_predictions.csv", row.names = FALSE)
+{% endhighlight R %}
+
+
+### (Optional) run this bad boy yourself
+
+From your command line, navigate to the `photo_kaggle` directory and run `> Rscript ./scripts/run_classifier.R`. This will build an xgboost model and save predictions from the `test.csv` file provided to us on Kaggle. From here it's easy to add and tune more hyperparameters, add some creative features, delete useless ones, etc. Xgboost is really powerful, have fun!
