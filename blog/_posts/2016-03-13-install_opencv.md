@@ -8,9 +8,9 @@ date: "2016-03-13"
 ### What's OpenCV?
 Ahhh, computer vision, such a cool field! Lately, I've been trying to become more knowledgeable about CV and image processing in python. [OpenCV](http://opencv.org/downloads.html) (CV = 'computer vision') is an excellent open source computer vision software library written in C++ that supports C++, C, Python, Java, and Matlab API's. OpenCV will supply you with functions that will let you detect faces in images, track objects in a video, and perform any number of image processing tasks.
 
-The only problem is: how the *hell* do I install OpenCV so that I can use it in conjunction with a Jupyter notebook? Let's be honest, most likely you're either you're using a Jupyter notebook, Spyder, or the ipython terminal (if you're a real sadist) to test your python code. And especially if you're coding for image processing, you're going to want to view your progress without having (a) a million separate images open and (b) having to wait for Spyder to inevitably crash. That's the beauty of a Jupyter notebook - when you're using with [Matplotlib](http://matplotlib.org/), you can just display your images and movies in a living document!
+The only problem is: how the *hell* do I install OpenCV so that I can use it in conjunction with a Jupyter notebook? Let's be honest, most likely you're either you're using a Jupyter notebook, Spyder, or the ipython terminal (if you're a real sadist) to test your python code. And especially if you're coding for image processing, you're going to want to view your progress without having (a) a million separate images open and (b) having to wait for Spyder to inevitably crash. That's the beauty of a Jupyter notebook - when you're using it with [Matplotlib](http://matplotlib.org/), you can just display your images and videos in a living document!
 
-For me, my ideal OpenCV situation would be to be able to simply type and evaluate the following with zero import errors or package conficts:
+For me, my ideal OpenCV situation would be for me to be able to simply type and evaluate the following `import` statements with zero errors or package conficts:
 
 
 {% highlight python %}
@@ -26,28 +26,28 @@ There are **many** ways to install OpenCV. The standard approach is to download 
 
 If you're like me (maybe you're not) I often think that `pip install`'ing a Python package is the same thing as R's `install.packages` function - while we get similar functionality, R packages come with the luxury of basically never interfering with other R package dependencies! If one package needs a newer or older version of some other package you've already installed, `install.packages` will most likely just take care of everything for you. Python packages, on the other hand, will often have dependencies on specific versions of other packages, so if you `pip install` one package, other package may fail to import because their dependent packages have been updated. That's why we use virtual environments; my favorite method for creating and running virtual environments is with [Anaconda](https://www.continuum.io/downloads), a Python distribution that comes with Sklearn, Scipy, NumPy, Jupyter notebook, and most of the other essential tools a data scientist needs when using Python.
 
-Overall, I just needed a few steps towards installing OpenCV cleanly:
+Overall, I installed OpenCV cleanly in just a few steps:
 
-- Installing Anaconda, making Anaconda's Python your system's default Python 
-- Create a virtual environment
+- Install Anaconda, make Anaconda's Python your system's default Python (skip if you already have this).
+- Create a virtual environment.
 - Make sure all Conda packages are up-to-date.
 - Run `conda install -c https://conda.binstar.org/menpo opencv`
-- Test
+- Test.
 
 <br/>
 
 ### (1) Install Anaconda. (Skip if you already have Anaconda).
 
-First off, I'm still a Python 2 guy. Yeah, there's Python 3, but I grew up on Py 2.7 and it'll take a lot to pry it from my cold, dead hands. So I have a Python 2.7 Anaconda environment running on my computer. Your choice.
+First off, I'm still a python 2 guy. Yeah, there's python 3, but I grew up on Py 2.7 and it'll take a lot to pry it from my cold, dead hands. So I have a python 2.7 Anaconda environment running on my computer. Your choice.
 
 I went to the Anaconda [downloads](https://www.continuum.io/downloads) page and got the Python 2.7 Mac OS X 64-Bit *command-line installer*, so that we can install everything from Terminal.
 
-Navigate to your Downloads directory (if you're new, go into Terminal and type `> cd $HOME/Downloads`).
+After downloading that, navigate to your Downloads directory (if you're new to the Terminal, just open the Terminal application and type `cd $HOME/Downloads`).
 
 While still in Terminal, enter 
 
 {% highlight bash %}
-> bash Anaconda2-2.5.0-MacOSX-x86_64.sh
+$ bash Anaconda2-2.5.0-MacOSX-x86_64.sh
 {% endhighlight %}
 
 Awesome, now you've downloaded and installed Anaconda.
@@ -55,22 +55,22 @@ Awesome, now you've downloaded and installed Anaconda.
 <br/>
 
 ### (1.b) Make Anaconda your default python installation.
-For data science, Anaconda rules. And when you're in Terminal and type `> python`, you'd like for the Anaconda python installation to be the default instead of what comes installed on a typical Macbook. Why? Well, using Anaconda we can just import NumPy, import any Scikit Learn funciton, etc.
+For data science, Anaconda rules. Ideally, when you're in Terminal and you type `python`, you'd like for the Anaconda python installation to be the default python that starts running instead of what comes installed by default on a typical Macbook. Why? Well, using Anaconda we can just import NumPy, import any Scikit Learn funciton, import Matplotlib, etc.
 
 To see what I'm talking about, type this in Terminal:
 
 {% highlight bash %}
-> which python
+$ which python
 {% endhighlight %}
 
 If you get `/usr/bin/python2.7`, you're not using the Anaconda installation. To change this, you'll need to change your **bash_profile** so that the default path to the python installation in the Anaconda directory. If you don't have a .bash_profile file in your home directory, do this:
 
 
 {% highlight bash %}
-> touch $HOME/.bash_profile
+$ touch $HOME/.bash_profile
 {% endhighlight %}
 
-Next, open the .bash_profile page and add this line:
+This just created that file. Next, open the .bash_profile page and add this line:
 
 **export PATH="~/anaconda/bin:$PATH"**
 
@@ -78,27 +78,27 @@ Finally, you have to make your system update python path the with your new setti
 
 
 {% highlight bash %}
-> source $HOME/.bash_profile
+$ source $HOME/.bash_profile
 {% endhighlight %}
 
 <br/>
 
 ### (2) Make an Anaconda virtual environment
 
-Anaconda has great [documentation](http://conda.pydata.org/docs/py2or3.html#create-a-python-2-7-environment) if you ever get lost using their tools, but otherwise they're pretty easy to use. To create a virtual python 2.7 environment called "py27" run this:
+Anaconda has great [documentation](http://conda.pydata.org/docs/py2or3.html#create-a-python-2-7-environment) if you ever get lost using their tools, but otherwise they're pretty easy to use. To create a virtual python 2.7 environment called "py27," run this:
 
 
 {% highlight bash %}
-> conda create -n py27 python=2.7 anaconda
+$ conda create -n py27 python=2.7 anaconda
 {% endhighlight %}
 
 To enter this virtual environment, we use Conda's `source activate` function:
 
 {% highlight bash %}
-> source activate py27
+$ source activate py27
 {% endhighlight %}
 
-If the environment is running properly, you should see `(py27)` preceding the `$` sign at the command prompt in Terminal. In this environment we have access to Anaconda's python package installer, `conda install`, so that we can install packages at will in this "bubble" without messing up dependencies (basically breaking python) in any other environment. Side note, if you want to exit this py27 environment, just run `source deactivate`.
+If the environment is running properly, you should see `(py27)` preceding the `$` sign at the command prompt in Terminal. In this environment we have access to Anaconda's python package installer, `conda install`, so that we can install packages at will in this "bubble" without messing up dependencies (basically breaking python) in any other environment. Side note: if you want to exit this py27 environment, just enter `source deactivate` in Terminal.
 
 <br/>
 
@@ -107,19 +107,19 @@ Just to be safe, I updated all of my python packages while inside of my py27 env
 
 
 {% highlight bash %}
-> conda update --all
+$ conda update --all
 {% endhighlight %}
 
 <br/>
 
 ### (4) Install OpenCV
-With Anconda we can install python packages locally within a specific Conda environment using `conda install` instead of `pip`, the typical python package management system.
+With Anconda we can install python packages within a specific Conda environment using `conda install` instead of `pip`, the typical python package management system.
 
-Next, I would normally suggest just typing `conda install opencv` at the command prompt, but this (unsurprisingly) lead to a package conflict with NumPy! Yep, the version of OpenCV that Conda installed relied on a specific release of the NumPy package that was actually in conflict with the one that was just updated in step (3). OK, to be honest, maybe I brought that upon myself with updating the packages the way I did. But, there's a work around that functions with this latest update of NumPy: install OpenCV directly from the [Menpo project](http://www.menpo.org/):
+Next, I would normally suggest just typing `conda install opencv` at the command prompt, but this (unsurprisingly) lead me to a package conflict with NumPy! Yep, the version of OpenCV that Conda installed relied on a specific release of the NumPy package that was actually in conflict with the one that was just updated in step (3). OK, to be honest, maybe I brought that upon myself with updating the packages the way I did. But, there's a work around that functions with this latest update of NumPy: install OpenCV directly from the [Menpo project](http://www.menpo.org/):
 
 
 {% highlight bash %}
-> conda install -c https://conda.binstar.org/menpo opencv
+$ conda install -c https://conda.binstar.org/menpo opencv
 {% endhighlight %}
 
 
@@ -130,11 +130,11 @@ The Anaconda environment should now have everything we need to start analyzing i
 
 
 {% highlight bash %}
-> jupyter notebook
+$ jupyter notebook
 {% endhighlight %}
 
-Next, see if everything is installed correctly; hopefully you'll be able to run this:
+Next, see if everything is installed correctly; hopefully you'll be able to run this sans errors:
 
 ![jupyter notebook](https://raw.githubusercontent.com/FrankFineis/FrankFineis.github.io/master/images/opencv_import_ss.png)
 
-Hopefully, you're not getting any errors. Now, you can readily access OpenCV functions with the package prefix `cv2`!
+If successful, you'll be able to readily access OpenCV functions with the package prefix `cv2`!
