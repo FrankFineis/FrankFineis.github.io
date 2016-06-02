@@ -40,9 +40,9 @@ That's it. I mean, that's the biggest reason - deep nets learn really good bases
 
 Greebles look exactly how they sound, as in, they're purple minions with weird phallic horns. Here are a few greebles I got from [CMU](link):
 
-<img src = "https://raw.githubusercontent.com/FrankFineis/FrankFineis.github.io/master/images/f1~14-v1.tif" />
-<img src = "https://raw.githubusercontent.com/FrankFineis/FrankFineis.github.io/master/images/f1~16-v1.tif" />
-<img src = "https://raw.githubusercontent.com/FrankFineis/FrankFineis.github.io/master/images/m5~54-v2.tif" />
+<img src = "https://github.com/FrankFineis/FrankFineis.github.io/raw/master/images/f1~14-v1.tif?raw=true" />
+<img src = "https://github.com/FrankFineis/FrankFineis.github.io/blob/master/images/f1~16-v1.tif?raw=true" />
+<img src = "https://github.com/FrankFineis/FrankFineis.github.io/blob/master/images/m5~54-v2.tif?raw=true" />
 
 "Male" greebles have concave-up horns and "female" greebles have concave-down horns; they're commonly used in psychological studies related to facial and object recognition, and according to Wikipedia they're commonly found in psychology textbooks. In my [greebles repo](link), you'll find 160 color greeble images with 84 males and 76 females. 
 
