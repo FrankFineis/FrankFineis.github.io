@@ -30,13 +30,13 @@ While the MNIST set is big enough to merit GPU computing, I'm more interested in
 
 The MNIST numbers are a great resource, no doubt, but these tutorials centered on classifying the MNIST set can easily mask the complexity and patietence required to build a high-perforant deep network. Jumping in with an MNIST tutorial might make you forget why we're even using neural networks in the beginning.
 
-The underlying reason why we use a neural net with images (either multi-layer perceptron networks, convolutional neural nets, or a combination of both) is that they let us learn really good image bases in an unsupervised way. That's the goal in most of machine learning, deriving bases (simple representations, the LEGOS, if you will) that comprise the objects in your training set. For example, here are some of the bases learned for the MNIST training set while training a multi-layer perceptron model:
+The underlying reason why we use a neural net with images (either multi-layer perceptron networks, convolutional neural nets, or maybe even autoencoders) is that they let us learn really good image bases in an unsupervised way. That's the goal in most of machine learning, deriving bases (simple representations, the LEGOS, if you will) that comprise the objects in your training set. For example, here are some of the bases learned for the MNIST training set while training a multi-layer perceptron model:
 
 <p align="center">
 <img src = "https://raw.githubusercontent.com/FrankFineis/FrankFineis.github.io/master/images/mnist_weights.png" class = "inline" width="400px" />
 </p>
 
-That's it. I mean, that's the biggest reason - deep nets learn really good bases that aren't confined to being linear combinations of the original pixel features (like PCA), or convex combinations of pixel features (like archetypal analysis), but bases built upon non-linear transformations of images in the training set.
+That's it. I mean, that's the biggest reason - deep nets learn really good bases that aren't confined to being linear combinations of the original pixel features (like PCA), or convex combinations of pixel features (like archetypal analysis), but seemingly arbitrarily complex, non-linear transformations of pixel features in the training set.
 
 ### Meet the Greebles
 
