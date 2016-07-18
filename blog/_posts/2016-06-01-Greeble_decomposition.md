@@ -43,7 +43,7 @@ That's it. I mean, that's the biggest reason - deep nets learn really good bases
 
 Many things about deep learning go unaddressed in a typical walkthrough to a new deep learning framework like a Keras or a Theano. Here are a few questions I'll hope to explore on my own that I feel are important to understanding deep learning as a tool and not a solution.
 
-1. What are the dimensionality constraints for training a multi-layer perception model? Is it even possible to train a model using less than a few thousand training examples? Is there a ratio of $n$ (training examples) to $p$ (feature dimension) beyond which an MLP or a convolutional neural network would be particularly easy to train? 
+1. What are the dimensionality constraints for training a multi-layer perception model? Is it even possible to train a model using less than a few thousand training examples? Is there a ratio of **n** (training examples) to **p** (feature dimension) beyond which an MLP or a convolutional neural network would be particularly easy to train? 
 
 2. Is there a way to assess statistical significance using a neural net - e.g., can I get something like a standard error for the coefficients in a weights matrix between two layers of an MLP?
 
