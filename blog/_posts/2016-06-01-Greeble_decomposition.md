@@ -70,7 +70,7 @@ In the coming tutorials, I'm going to see how well I can train a host of models,
 + **Convolutional** neural nets
 + **Autoencoders:** similar to PCA, the autoencoder finds a low-rank approximation to an input
 
-### Greeble decomposition ["tutorial"](https://github.com/fineiskid/Greeble_image_learning/blob/master/greeble_decompositions.ipynb)
+### Greeble decomposition [tutorial](https://github.com/fineiskid/Greeble_image_learning/blob/master/greeble_decompositions.ipynb)
 
-To get started, check out the ["tutorial"](https://github.com/fineiskid/Greeble_image_learning/blob/master/greeble_decompositions.ipynb) I've posted in my greebles repository for how to get started loading the greeble images, and how to start reducing the dimension of the initial feature space. Each greeble .tif file is 360 pixels by 320 pixels, so we have 160 greebles with each 115200 interesting features. No learning algorithm is going to be able to swim in such a high-dimensional situation, so I've used principal component analysis and non-negative matrix factorization as ways to reduce the dimension of our greeble set prior to fitting a classification model.
+To get started, check out the [tutorial](https://github.com/fineiskid/Greeble_image_learning/blob/master/greeble_decompositions.ipynb) I've posted in my greebles repository for how to get started loading the greeble images, and how to start reducing the dimension of the initial feature space. Each greeble .tif file is 360 pixels by 320 pixels, so we have 160 greebles with each 115200 interesting features. No learning algorithm is going to be able to swim in such a high-dimensional situation, so I've used principal component analysis and non-negative matrix factorization as ways to reduce the dimension of our greeble set prior to fitting a classification model.
 
